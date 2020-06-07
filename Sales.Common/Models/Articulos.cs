@@ -17,5 +17,10 @@
 
         public DateTime FechaAlata { get; set; }
 
+        public override string ToString()
+        {
+            return this.Descripcion;
+        }
+
     }
 }

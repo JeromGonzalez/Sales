@@ -8,6 +8,8 @@
         {
 
         }
+
+        public System.Data.Entity.DbSet<Sales.Common.Models.Articulos> Articulos { get; set; }
     }
 }
  
