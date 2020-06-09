@@ -6,6 +6,7 @@ namespace Sales.ViewModels
     using System.Windows.Input;
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
+    using Helpers;
     using Services;
     using Xamarin.Forms;
 
@@ -41,16 +42,18 @@ namespace Sales.ViewModels
             if (!conexionInternet.Correcto )
             {
                 this.IsRefreshing = false;
-                await Application.Current.MainPage.DisplayAlert("Error", conexionInternet.Texto, "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, conexionInternet.Texto, Languages.Aceptar);
                 return;
             }
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
-            var response = await apiService.GetList<Articulos>(url, "/api", "/Articulos");
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controlador = Application.Current.Resources["UrlArticulosControlador"].ToString();
+            var response = await apiService.GetList<Articulos>(url, prefix, controlador);
             if (!response.Correcto)
             {
                 this.IsRefreshing = false;
-                await Application.Current.MainPage.DisplayAlert("Error", response.Texto, "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, response.Texto, Languages.Aceptar);
                 return;
             }
 

@@ -7,6 +7,7 @@
     using Common.Models;
     using Newtonsoft.Json;
     using Plugin.Connectivity;
+    using Helpers;
 
     public class ApiService
     {
@@ -18,7 +19,7 @@
                 return new Responses
                 {
                     Correcto = false,
-                    Texto  = "Activa tu conexion a internet",
+                    Texto  = Languages.ActivarConexion,
                 };
             }
 
@@ -28,7 +29,7 @@
                 return new Responses
                 {
                     Correcto = false,
-                    Texto = "No dispone de conexión a internet",
+                    Texto = Languages.SinConexion,
                 };
             }
 
@@ -37,8 +38,6 @@
                 Correcto = true,
             };
         }
-
-
 
         public object Jsonconvert { get; private set; }
 

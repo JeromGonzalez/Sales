@@ -11,7 +11,12 @@
 
             <infra:Instancelocator x:Key="Locator"/>
 
-            <x:String x:Key="UrlAPI">https://salesapi20200606215140.azurewebsites.net</x:String>
+            <!--Parametros-->
+            <!--https://jeromserver.duckdns.org/apiventas-->
+            <!--https://apiventas.azurewebsites.net-->
+            <x:String x:Key="UrlAPI">https://apiventas.azurewebsites.net</x:String>
+            <x:String x:Key="UrlPrefix">/api</x:String>
+            <x:String x:Key="UrlArticulosControlador">/articulos</x:String>
 
         </ResourceDictionary>
     </Application.Resources>
