@@ -8,6 +8,9 @@
              x:Class="Sales.Views.PaginaArticulos"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              Title="{i18n:Translate Articulos}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_add" Command="{Binding AddArticuloCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding Articulo}"
             Padding="5,10,5,10">
@@ -17,31 +20,55 @@
                 IsRefreshing="{Binding IsRefreshing}"
                 IsPullToRefreshEnabled="True"
                 RefreshCommand="{Binding RefreshCommand}"
-                ItemsSource="{Binding Articulo}">
+                ItemsSource="{Binding Articulo}"
+                BackgroundColor="Transparent">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label
+                                <Image
                                     Grid.Column="0"
-                                    FontAttributes="Bold"
-                                    Text="{Binding Descripcion}">
-                                </Label>
-                                <Label
+                                    Source="{Binding PintarRutaFoto}"
+                                    WidthRequest="100">
+                                </Image>
+                                <StackLayout
                                     Grid.Column="1"
-                                    HorizontalOptions="End" 
-                                    Text="{Binding PVP, StringFormat='{0:C2}'}">
-                                </Label>
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontAttributes="Bold"
+                                        Text="{Binding Descripcion}">
+                                    </Label>
+                                    <Label
+                                        Text="{Binding Comentario}">
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout
+                                    Grid.Column="2"
+                                    VerticalOptions="Center" >
+                                    <Label
+                                        HorizontalOptions="End" 
+                                        VerticalTextAlignment="Center"
+                                        Text="{Binding PVP, StringFormat='{0:C2}'}"
+                                        FontAttributes="Bold">
+                                    </Label>
+                                    <Image
+                                        HorizontalOptions="Center" 
+                                        WidthRequest="60"
+                                        Source="ic_ver">
+                                    </Image>
+                                </StackLayout>
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                       
-                
+
+
             </ListView>
         </StackLayout>
     </ContentPage.Content>

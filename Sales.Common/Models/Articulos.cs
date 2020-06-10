@@ -27,6 +27,19 @@
         [DataType(DataType.Date)]
         public DateTime FechaAlata { get; set; }
 
+        public string PintarRutaFoto
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.RutaImagen))
+                {
+                    return "sinfoto";
+                }
+
+                return $"https://ventasbackend.azurewebsites.net{this.RutaImagen.Substring(1)}";
+            }
+        }
+
         public override string ToString()
         {
             return this.Descripcion;

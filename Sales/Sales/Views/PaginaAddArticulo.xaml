@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Sales.Helpers"
+             x:Class="Sales.Views.AddArticulo"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="{i18n:Translate AñadirArticulo}">
+    <ContentPage.Content>
+        <ScrollView
+            BindingContext="{Binding AddArticulo}">
+            <StackLayout
+                Padding="5,10,5,10">
+                <ImageButton
+                    WidthRequest="175"
+                    Source="sinfoto" 
+                    Clicked="{Binding SeleccionarImagen}">
+                </ImageButton>
+                <Label
+                    FontSize="Small" 
+                    HorizontalOptions="Center" 
+                    Text="{i18n:Translate CambiarImagen}">
+                </Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        FontAttributes="Bold" 
+                        Text="{i18n:Translate Descripcion}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="0"  
+                        Text="{Binding Descripcion}"
+                        MaxLength="100"
+                        Placeholder="{i18n:Translate DescripcionPlaceHolder}">
+                    </Entry>
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="1"
+                        FontAttributes="Bold" 
+                        Text="{i18n:Translate Precio}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                    <Entry
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Text="{Binding Precio}"
+                        Placeholder="{i18n:Translate PrecioPlaceHolder}"
+                        Keyboard="Numeric">
+                    </Entry>
+                    <Label 
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        FontAttributes="Bold" 
+                        Text="{i18n:Translate Comentario}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                    <Editor 
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Text="{Binding Comentario}"
+                        VerticalOptions="FillAndExpand">
+                    </Editor>
+                </Grid>
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning}}"
+                    VerticalOptions="CenterAndExpand">
+                </ActivityIndicator>
+                <Button
+                    BackgroundColor="LightGreen"
+                    BorderRadius="23"
+                    HeightRequest="46"
+                    Text="{i18n:Translate Guardar}"
+                    TextColor="White"
+                    IsEnabled="{Binding BotonEnabled}"
+                    Command="{Binding GuardarCommand}">
+                </Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

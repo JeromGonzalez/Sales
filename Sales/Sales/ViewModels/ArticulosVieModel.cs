@@ -35,7 +35,7 @@ namespace Sales.ViewModels
             this.CargarArticulos();
         }
 
-        private async void CargarArticulos()
+        private async void CargarArticulos( )
         {
             this.IsRefreshing = true;
             var conexionInternet = await this.apiService.CheckConnection();
@@ -69,6 +69,7 @@ namespace Sales.ViewModels
                 return new RelayCommand(CargarArticulos);
             }
         }
+ 
     }
 }
  

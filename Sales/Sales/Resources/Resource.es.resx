@@ -132,4 +132,37 @@
   <data name="Articulos" xml:space="preserve">
     <value>Artículos</value>
   </data>
+  <data name="BuscarArticulos" xml:space="preserve">
+    <value>Buscar artículos...</value>
+  </data>
+  <data name="AñadirArticulo" xml:space="preserve">
+    <value>Añadir artículo</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="DescripcionPlaceHolder" xml:space="preserve">
+    <value>Introduzca una descripción...</value>
+  </data>
+  <data name="PrecioPlaceHolder" xml:space="preserve">
+    <value>Introduzca un precio...</value>
+  </data>
+  <data name="Precio" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="Comentario" xml:space="preserve">
+    <value>Comentario</value>
+  </data>
+  <data name="Guardar" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="CambiarImagen" xml:space="preserve">
+    <value>Toque la imagen para cambiarla</value>
+  </data>
+  <data name="ErrorDescripcion" xml:space="preserve">
+    <value>Debe introducir una descripcion válida</value>
+  </data>
+  <data name="ErrorPrecio" xml:space="preserve">
+    <value>Debe introducir un precio correcto.</value>
+  </data>
 </root>

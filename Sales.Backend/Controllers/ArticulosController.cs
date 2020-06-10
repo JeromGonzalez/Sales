@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Sales.Backend.Models;
-using Sales.Common.Models;
-
-namespace Sales.Backend.Controllers
+﻿namespace Sales.Backend.Controllers
 {
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+    using System.Threading.Tasks;
+    using Backend.Models;
+    using Common.Models;
+    using Backend.Helpers;
+    using System;
+
     public class ArticulosController : Controller
     {
         private LocalDataContext db = new LocalDataContext();
 
-        // GET: Articulos
         public async Task<ActionResult> Index()
         {
-            return View(await db.Articulos.ToListAsync());
+            return View(await this.db.Articulos.OrderBy(a=> a.Descripcion).ToListAsync());
         }
 
         // GET: Articulos/Details/5
@@ -29,7 +26,7 @@ namespace Sales.Backend.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulos articulos = await db.Articulos.FindAsync(id);
+            Articulos articulos = await this.db.Articulos.FindAsync(id);
             if (articulos == null)
             {
                 return HttpNotFound();
@@ -37,68 +34,111 @@ namespace Sales.Backend.Controllers
             return View(articulos);
         }
 
-        // GET: Articulos/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Articulos/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CodProducto,Descripcion,PVP,Activo,FechaAlata")] Articulos articulos)
+        public async Task<ActionResult> Create(ArticuloVista view)
         {
             if (ModelState.IsValid)
             {
-                db.Articulos.Add(articulos);
-                await db.SaveChangesAsync();
+                var pic = string.Empty;
+                var folder = "~/Content/Articulos";
+                if (view.ArchivoImagen != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ArchivoImagen, folder);
+                    pic = $"{folder}/{pic}";
+                }
+
+                var articulos = this.ToArticulo(view, pic);
+
+                this.db.Articulos.Add(articulos);
+                await this.db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(articulos);
+            return View(view);
         }
 
-        // GET: Articulos/Edit/5
+        private Articulos ToArticulo(ArticuloVista view, string pic)
+        {
+            return new Articulos
+            {
+                Descripcion = view.Descripcion,
+                Activo   = view.Activo,
+                RutaImagen  = pic,
+                Comentario  = view.Comentario,
+                FechaAlata  = view.FechaAlata ,
+                PVP = view.PVP ,
+                CodProducto = view.CodProducto 
+            };
+        }
+
+        [HttpGet]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulos articulos = await db.Articulos.FindAsync(id);
+            Articulos articulos = await this.db.Articulos.FindAsync(id);
             if (articulos == null)
             {
                 return HttpNotFound();
             }
-            return View(articulos);
+
+            var view = this.ToVista(articulos);
+            return View(view);
         }
 
-        // POST: Articulos/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        private ArticuloVista ToVista(Articulos art)
+        {
+            return new ArticuloVista
+            {
+                Descripcion = art.Descripcion,
+                Activo = art.Activo,
+                RutaImagen = art.RutaImagen,
+                Comentario = art.Comentario,
+                FechaAlata = art.FechaAlata,
+                PVP = art.PVP,
+                CodProducto = art.CodProducto
+            };
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CodProducto,Descripcion,PVP,Activo,FechaAlata")] Articulos articulos)
+        public async Task<ActionResult> Edit(ArticuloVista view)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(articulos).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                var pic = string.Empty;
+                var folder = "~/Content/Articulos";
+                if (view.ArchivoImagen != null)
+                {
+                    pic = FilesHelper.UploadPhoto(view.ArchivoImagen, folder);
+                    pic = $"{folder}/{pic}";
+                }
+
+                var articulos = this.ToArticulo(view, pic);
+                this.db.Entry(articulos).State = EntityState.Modified;
+                await this.db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(articulos);
+            return View(view);
         }
 
-        // GET: Articulos/Delete/5
+        [HttpGet]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Articulos articulos = await db.Articulos.FindAsync(id);
+            Articulos articulos = await this.db.Articulos.FindAsync(id);
             if (articulos == null)
             {
                 return HttpNotFound();
@@ -106,14 +146,13 @@ namespace Sales.Backend.Controllers
             return View(articulos);
         }
 
-        // POST: Articulos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Articulos articulos = await db.Articulos.FindAsync(id);
-            db.Articulos.Remove(articulos);
-            await db.SaveChangesAsync();
+            Articulos articulos = await this.db.Articulos.FindAsync(id);
+            this.db.Articulos.Remove(articulos);
+            await this.db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +160,7 @@ namespace Sales.Backend.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.db.Dispose();
             }
             base.Dispose(disposing);
         }

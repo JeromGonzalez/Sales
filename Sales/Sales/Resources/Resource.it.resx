@@ -132,4 +132,37 @@
   <data name="Articulos" xml:space="preserve">
     <value>Prodotti</value>
   </data>
+  <data name="BuscarArticulos" xml:space="preserve">
+    <value>Ricerca articoli...</value>
+  </data>
+  <data name="AñadirArticulo" xml:space="preserve">
+    <value>Aggiungi articolo</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="DescripcionPlaceHolder" xml:space="preserve">
+    <value>Inserisci una descrizione ...</value>
+  </data>
+  <data name="PrecioPlaceHolder" xml:space="preserve">
+    <value>Inserisci un prezzo ...</value>
+  </data>
+  <data name="Precio" xml:space="preserve">
+    <value>Prezzo</value>
+  </data>
+  <data name="Comentario" xml:space="preserve">
+    <value>Commento</value>
+  </data>
+  <data name="Guardar" xml:space="preserve">
+    <value>Salvare</value>
+  </data>
+  <data name="CambiarImagen" xml:space="preserve">
+    <value>Tocca l'immagine per cambiarla</value>
+  </data>
+  <data name="ErrorDescripcion" xml:space="preserve">
+    <value>È necessario immettere una descrizione valida</value>
+  </data>
+  <data name="ErrorPrecio" xml:space="preserve">
+    <value>È necessario immettere un prezzo corretto.</value>
+  </data>
 </root>

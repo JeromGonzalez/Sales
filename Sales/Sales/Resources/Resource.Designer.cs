@@ -79,6 +79,15 @@ namespace Sales.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Add item.
+        /// </summary>
+        public static string AñadirArticulo {
+            get {
+                return ResourceManager.GetString("AñadirArticulo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Products.
         /// </summary>
         public static string Articulos {
@@ -88,11 +97,101 @@ namespace Sales.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Search items....
+        /// </summary>
+        public static string BuscarArticulos {
+            get {
+                return ResourceManager.GetString("BuscarArticulos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Touch the image to change it.
+        /// </summary>
+        public static string CambiarImagen {
+            get {
+                return ResourceManager.GetString("CambiarImagen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Comment.
+        /// </summary>
+        public static string Comentario {
+            get {
+                return ResourceManager.GetString("Comentario", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Description.
+        /// </summary>
+        public static string Descripcion {
+            get {
+                return ResourceManager.GetString("Descripcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter a description....
+        /// </summary>
+        public static string DescripcionPlaceHolder {
+            get {
+                return ResourceManager.GetString("DescripcionPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Error.
         /// </summary>
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must enter a valid description.
+        /// </summary>
+        public static string ErrorDescripcion {
+            get {
+                return ResourceManager.GetString("ErrorDescripcion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must enter a correct price..
+        /// </summary>
+        public static string ErrorPrecio {
+            get {
+                return ResourceManager.GetString("ErrorPrecio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Save.
+        /// </summary>
+        public static string Guardar {
+            get {
+                return ResourceManager.GetString("Guardar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Price.
+        /// </summary>
+        public static string Precio {
+            get {
+                return ResourceManager.GetString("Precio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enter a price ....
+        /// </summary>
+        public static string PrecioPlaceHolder {
+            get {
+                return ResourceManager.GetString("PrecioPlaceHolder", resourceCulture);
             }
         }
         

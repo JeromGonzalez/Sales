@@ -75,5 +75,10 @@
                 };
             }
         }
+
+        public async Task<Responses> Post<T>(string urlBase, string prefix, string controller)
+        {
+
+        }
     }
 }

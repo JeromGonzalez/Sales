@@ -4,15 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Articulos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { }, new { @class="btn btn-primary" })
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RutaImagen)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PVP)
@@ -32,6 +38,15 @@
             @Html.DisplayFor(modelItem => item.Descripcion)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Comentario)
+        </td>
+        <td>
+            @if (!string.IsNullOrEmpty(item.RutaImagen ))
+            {
+                <img src = "@Url.Content(item.RutaImagen ) " alt = "Image" style = " width : 100px ; height : 150px ; max-width : 100% ; height : auto ; " />
+            }
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.PVP)
         </td>
         <td>
@@ -41,9 +56,9 @@
             @Html.DisplayFor(modelItem => item.FechaAlata)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CodProducto }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CodProducto }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CodProducto })
+            @Html.ActionLink("Edit", "Edit", new { id = item.CodProducto }, new { @class="btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CodProducto }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CodProducto }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
