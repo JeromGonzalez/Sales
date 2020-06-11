@@ -12,34 +12,41 @@ namespace Sales.ViewModels
 
     public class ArticulosVieModel : BaseViewModel
     {
+        #region Atributos
         private ApiService apiService;
-
         private bool isRefreshing;
+        #endregion
+
+        #region Propiedades
+        private ObservableCollection<Articulos> priArticulo;
+        public ObservableCollection<Articulos> Articulo
+        {
+            get { return this.priArticulo; }
+            set { this.SetValue(ref this.priArticulo, value); }
+        }
 
         public bool IsRefreshing
         {
             get { return this.isRefreshing ; }
             set { this.SetValue(ref this.isRefreshing, value); }
         }
+        #endregion
 
-        private ObservableCollection<Articulos> priArticulo;
-        public ObservableCollection<Articulos> Articulo 
-        {
-            get { return this.priArticulo;  }
-            set { this.SetValue(ref this.priArticulo, value); }
-        }
-
+        #region Constructores
         public ArticulosVieModel()
         {
+            instance = this;
             this.apiService = new ApiService();
             this.CargarArticulos();
         }
+        #endregion
 
-        private async void CargarArticulos( )
+        #region Metodos
+        private async void CargarArticulos()
         {
             this.IsRefreshing = true;
             var conexionInternet = await this.apiService.CheckConnection();
-            if (!conexionInternet.Correcto )
+            if (!conexionInternet.Correcto)
             {
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert(Languages.Error, conexionInternet.Texto, Languages.Aceptar);
@@ -61,7 +68,23 @@ namespace Sales.ViewModels
             this.Articulo = new ObservableCollection<Articulos>(list);
             this.IsRefreshing = false;
         }
+        #endregion
 
+        #region Singleton
+        private static ArticulosVieModel instance;
+
+        public static ArticulosVieModel GetInstance()
+        {
+            if (instance == null)
+            {
+                return new ArticulosVieModel();
+            }
+
+            return instance;
+        }
+        #endregion
+
+        #region Comandos
         public ICommand RefreshCommand
         {
             get
@@ -69,7 +92,7 @@ namespace Sales.ViewModels
                 return new RelayCommand(CargarArticulos);
             }
         }
- 
+        #endregion
     }
 }
  

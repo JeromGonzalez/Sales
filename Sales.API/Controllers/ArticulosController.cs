@@ -1,34 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Sales.Common.Models;
-using Sales.Domain.Models;
-
-namespace Sales.API.Controllers
+﻿namespace Sales.API.Controllers
 {
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Description;
+    using Common.Models;
+    using Domain.Models;
+
     public class ArticulosController : ApiController
     {
         private DataContext db = new DataContext();
 
-        // GET: api/Articulos
+        [HttpGet]
         public IQueryable<Articulos> GetArticulos()
         {
-            return db.Articulos;
+            return this.db.Articulos.OrderBy(p => p.Descripcion);
         }
 
         // GET: api/Articulos/5
         [ResponseType(typeof(Articulos))]
         public async Task<IHttpActionResult> GetArticulos(int id)
         {
-            Articulos articulos = await db.Articulos.FindAsync(id);
+            Articulos articulos = await this.db.Articulos.FindAsync(id);
             if (articulos == null)
             {
                 return NotFound();
@@ -51,11 +48,11 @@ namespace Sales.API.Controllers
                 return BadRequest();
             }
 
-            db.Entry(articulos).State = EntityState.Modified;
+            this.db.Entry(articulos).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await this.db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -76,13 +73,16 @@ namespace Sales.API.Controllers
         [ResponseType(typeof(Articulos))]
         public async Task<IHttpActionResult> PostArticulos(Articulos articulos)
         {
+            articulos.Activo = true;
+            articulos.FechaAlata = DateTime.Now.ToUniversalTime(); 
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Articulos.Add(articulos);
-            await db.SaveChangesAsync();
+            this.db.Articulos.Add(articulos);
+            await this.db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = articulos.CodProducto }, articulos);
         }
@@ -91,14 +91,14 @@ namespace Sales.API.Controllers
         [ResponseType(typeof(Articulos))]
         public async Task<IHttpActionResult> DeleteArticulos(int id)
         {
-            Articulos articulos = await db.Articulos.FindAsync(id);
+            Articulos articulos = await this.db.Articulos.FindAsync(id);
             if (articulos == null)
             {
                 return NotFound();
             }
 
-            db.Articulos.Remove(articulos);
-            await db.SaveChangesAsync();
+            this.db.Articulos.Remove(articulos);
+            await this.db.SaveChangesAsync();
 
             return Ok(articulos);
         }
@@ -107,14 +107,14 @@ namespace Sales.API.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool ArticulosExists(int id)
         {
-            return db.Articulos.Count(e => e.CodProducto == id) > 0;
+            return this.db.Articulos.Count(e => e.CodProducto == id) > 0;
         }
     }
 }

@@ -10,11 +10,10 @@
             BindingContext="{Binding AddArticulo}">
             <StackLayout
                 Padding="5,10,5,10">
-                <ImageButton
+                <Image
                     WidthRequest="175"
-                    Source="sinfoto" 
-                    Clicked="{Binding SeleccionarImagen}">
-                </ImageButton>
+                    Source="sinfoto">
+                </Image>
                 <Label
                     FontSize="Small" 
                     HorizontalOptions="Center" 
@@ -73,17 +72,17 @@
                     </Editor>
                 </Grid>
                 <ActivityIndicator
-                    IsRunning="{Binding IsRunning}}"
+                    IsRunning="{Binding IsRunning}"
                     VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <Button
-                    BackgroundColor="LightGreen"
+                    BackgroundColor="Green" 
                     BorderRadius="23"
+                    Command="{Binding GuardarCommand}"
                     HeightRequest="46"
+                    IsEnabled="{Binding BtnEnabled}"
                     Text="{i18n:Translate Guardar}"
-                    TextColor="White"
-                    IsEnabled="{Binding BotonEnabled}"
-                    Command="{Binding GuardarCommand}">
+                    TextColor="White">
                 </Button>
             </StackLayout>
         </ScrollView>
